@@ -3,7 +3,12 @@ import { Button } from "react-bootstrap";
 import { useMetaMask} from "metamask-react";
 
 function App() {
-    const { status, addChain, switchChain, account, chainId } = useMetaMask();
+    const { status, addChain, switchChain, account, chainId, connect } = useMetaMask();
+
+    const addChain1 = (mumbaiChainNetworkParams) => {
+        addChain(mumbaiChainNetworkParams);
+        connect();
+    }
 
     const mumbaiChainNetworkParams = {
         chainId: "0x13881",
@@ -25,7 +30,7 @@ function App() {
                   <p><u>{status === 'initializing' ? `Synchronisation with MetaMask ongoing...` : '' }</u></p>
                   <p><u>{status === 'unavailable' ? `MetaMask not available :(` : '' }</u></p>
                   <p><u>{status === 'connecting' ? `Connecting...` : '' }</u></p>
-                  {status === 'notConnected' && <Button variant="secondary" onClick={() => addChain(mumbaiChainNetworkParams)}>
+                  {status === 'notConnected' && <Button variant="secondary" onClick={() => addChain1(mumbaiChainNetworkParams)}>
                       <img src="images/metamask.svg" alt="MetaMask" width="50" height="50" /> Connect to MetaMask
                   </Button>}
                   {
